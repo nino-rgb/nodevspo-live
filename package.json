@@ -1,7 +1,14 @@
 {
+  "name": "nodevspo-live",
+  "version": "1.0.0",
+  "main": "app.ts",
   "devDependencies": {
     "@types/node": "^18.19.74",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
-  }
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
