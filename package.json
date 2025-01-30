@@ -2,13 +2,29 @@
   "name": "nodevspo-live",
   "version": "1.0.0",
   "main": "app.ts",
+  "scripts": {
+    "start": "node dist/src/app.js",
+    "build": "tsc"
+  },
   "devDependencies": {
     "@types/node": "^18.19.74",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
     "nodemon": "^3.1.9",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/mysql": "^2.15.26",
+    "dotenv": "^16.4.7",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-node": "^11.1.0",
+    "mysql2": "^3.12.0"
+  }
 }
