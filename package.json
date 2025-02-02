@@ -4,7 +4,10 @@
   "main": "app.ts",
   "scripts": {
     "start": "node dist/src/app.js",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "nodemon src/app.ts",
+    "build:watch": "tsc --watch",
+    "lint-fix": "eslint --cache --fix src/ && prettier --write src/"
   },
   "devDependencies": {
     "@types/node": "^18.19.74",

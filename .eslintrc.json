@@ -1,9 +1,9 @@
 {
     "env": {
-        "es2021": true
+        "es2021": true,
         // 環境に応じてenvは変えてください
         // "node": true, 
-        // "browser": true
+        "browser": true
     },
     "extends": [
         "eslint:recommended",
