@@ -3,7 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mysql from "mysql2";
 import { AddressInfo } from "net";
-import { liveController } from "./controllers/controller";
+// import { liveController } from "./controllers/controller";
 
 async function main() {
   dotenv.config();
@@ -25,6 +25,7 @@ async function main() {
 
   const sever = app.listen(parseInt(PORT as string), () => {
     const address = sever.address() as AddressInfo;
+    console.log("Node.js is listening to PORT:" + address.port);
   });
 
   const connection = await mysql.createConnection({
@@ -35,6 +36,8 @@ async function main() {
     database: MYSQL_DB as string,
   });
 
-  app.use("/api", controller.router);
+  app.get("/", async (req, res) => {
+    res.json("テスト");
+  });
 }
 main();

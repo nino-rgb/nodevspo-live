@@ -1,13 +1,11 @@
-import { Router, Request, Response } from "express";
-import { Talents, Games, Talents_Games } from "models/live";
-import { }
+// import { Router, Request, Response } from "express";
+// import { Talents, Games, Talents_Games } from "models/live";
+// import { }
+// import { TalentsService } from "services/talent/liveServices";
 
-export class liveController {
-  private liveService: LiveService;
-  public router: Router;
+// export class TalentsController {
+//   private talentsService: TalentsService;
+//   public router: Router;
 
-  constructor(liveService: LiveService) {
-    this.liveService = liveService;
-    this.router = Router();
-  }
-}
+//   constructor(talentsService: TalentsService)
+// }
