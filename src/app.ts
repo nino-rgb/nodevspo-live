@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import mysql from "mysql2";
+import mysql, { RowDataPacket } from "mysql2";
 import { AddressInfo } from "net";
 // import { liveController } from "./controllers/controller";
 
@@ -34,6 +34,13 @@ async function main() {
     user: DB_USER as string,
     password: DB_PASS as string,
     database: DB_NAME as string,
+  });
+
+  const talentID = 1;
+  const sql = `SELECT * FROM talents WHERE id = ${talentID}`;
+
+  connection.query<RowDataPacket[]>(sql, (_err, rows) => {
+    console.log(rows);
   });
 
   app.get("/", async (req, res) => {
