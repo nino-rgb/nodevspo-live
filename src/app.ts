@@ -7,8 +7,10 @@ import { AddressInfo } from "net";
 
 async function main() {
   dotenv.config();
-  const { PORT, MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB } = process.env;
+  const { PORT, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
 
+  console.log(DB_USER);
+  console.log(DB_PASS);
   const app: Express = express();
 
   app.use(express.json());
@@ -28,13 +30,25 @@ async function main() {
     console.log("Node.js is listening to PORT:" + address.port);
   });
 
-  const connection = await mysql.createConnection({
-    host: MYSQL_HOST as string,
-    port: parseInt(MYSQL_PORT as string),
-    user: MYSQL_USER as string,
-    password: MYSQL_PASS as string,
-    database: MYSQL_DB as string,
-  });
+  try {
+    const connection = await mysql.createConnection({
+      host: "127.0.0.1" as string,
+      port: parseInt(DB_PORT as string),
+      user: DB_USER as string,
+      password: DB_PASS as string,
+      database: DB_NAME as string,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  // const connection = await mysql.createConnection({
+  //   host: DB_HOST as string,
+  //   port: parseInt(DB_PORT as string),
+  //   user: DB_USER as string,
+  //   password: DB_PASS as string,
+  //   database: DB_NAME as string,
+  // });
 
   app.get("/", async (req, res) => {
     res.json("テスト");
