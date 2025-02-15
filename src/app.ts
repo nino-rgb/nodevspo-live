@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import mysql from "mysql2";
+import mysql, { RowDataPacket } from "mysql2";
 import { AddressInfo } from "net";
 // import { liveController } from "./controllers/controller";
 
@@ -9,8 +9,6 @@ async function main() {
   dotenv.config();
   const { PORT, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
 
-  console.log(DB_USER);
-  console.log(DB_PASS);
   const app: Express = express();
 
   app.use(express.json());
@@ -30,25 +28,20 @@ async function main() {
     console.log("Node.js is listening to PORT:" + address.port);
   });
 
-  try {
-    const connection = await mysql.createConnection({
-      host: "127.0.0.1" as string,
-      port: parseInt(DB_PORT as string),
-      user: DB_USER as string,
-      password: DB_PASS as string,
-      database: DB_NAME as string,
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  const connection = await mysql.createConnection({
+    host: DB_HOST as string,
+    port: parseInt(DB_PORT as string),
+    user: DB_USER as string,
+    password: DB_PASS as string,
+    database: DB_NAME as string,
+  });
 
-  // const connection = await mysql.createConnection({
-  //   host: DB_HOST as string,
-  //   port: parseInt(DB_PORT as string),
-  //   user: DB_USER as string,
-  //   password: DB_PASS as string,
-  //   database: DB_NAME as string,
-  // });
+  const talentID = 1;
+  const sql = `SELECT * FROM talents WHERE id = ${talentID}`;
+
+  connection.query<RowDataPacket[]>(sql, (_err, rows) => {
+    console.log(rows);
+  });
 
   app.get("/", async (req, res) => {
     res.json("テスト");
