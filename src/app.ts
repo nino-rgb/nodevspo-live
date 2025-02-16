@@ -44,7 +44,7 @@ async function main() {
   });
 
   app.get("/", async (req, res) => {
-    res.json("テスト");
+    res.json("test");
   });
 }
 main();
