@@ -3,7 +3,6 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mysql, { RowDataPacket } from "mysql2";
 import { AddressInfo } from "net";
-// import { liveController } from "./controllers/controller";
 
 async function main() {
   dotenv.config();
