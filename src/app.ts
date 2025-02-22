@@ -1,8 +1,11 @@
 import express, { Express } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import mysql, { RowDataPacket } from "mysql2";
+import mysql, { RowDataPacket } from "mysql2/promise";
 import { AddressInfo } from "net";
+import { TalentsRepository } from "repository/talent/talentRepository";
+import { TalentsService } from "services/talent/talentsService";
+import { TalentsController } from "controllers/talentController";
 
 async function main() {
   dotenv.config();
@@ -35,15 +38,18 @@ async function main() {
     database: DB_NAME as string,
   });
 
-  const talentID = 1;
-  const sql = `SELECT * FROM talents WHERE id = ${talentID}`;
+  // const talentID = 1;
+  // const sql = `SELECT * FROM talents WHERE id = ${talentID}`;
 
-  connection.query<RowDataPacket[]>(sql, (_err, rows) => {
-    console.log(rows);
-  });
+  // connection.query<RowDataPacket[]>(sql, (_err, rows) => {
+  //   console.log(rows);
+  // });
 
-  app.get("/", async (req, res) => {
-    res.json("test");
-  });
+  // app.get("/", async (req, res) => {
+  //   res.json("test");
+  // });
+  const repository = new TalentsRepository(connection);
+  const service = new TalentsService(repository);
+  const controller = new TalentsController(service);
 }
 main();
