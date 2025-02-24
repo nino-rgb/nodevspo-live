@@ -3,9 +3,9 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mysql, { RowDataPacket } from "mysql2/promise";
 import { AddressInfo } from "net";
-import { TalentsRepository } from "repository/talent/talentRepository";
-import { TalentsService } from "services/talent/talentsService";
-import { TalentsController } from "controllers/talentController";
+import { TalentsRepository } from "./repositories/database/talent/talentRepository";
+import { TalentsService } from "./services/talent/talentsService";
+import { TalentsController } from "./controllers/talentController";
 
 async function main() {
   dotenv.config();
@@ -51,5 +51,6 @@ async function main() {
   const repository = new TalentsRepository(connection);
   const service = new TalentsService(repository);
   const controller = new TalentsController(service);
+  app.use("/api/", controller.router);
 }
 main();
