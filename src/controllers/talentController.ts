@@ -10,13 +10,14 @@ export class TalentsController {
     this.talentsService = talentsService;
     this.router = Router();
 
-    this.router.get("/talent", async (req: Request, res: Response) => {
+    this.router.get("/talents", async (req: Request, res: Response) => {
       const result = await this.talentsService.findAll();
 
       if (result instanceof Error) {
         res.status(500).json(result.message);
         return;
       }
+      res.status(200).json(result);
     });
 
     this.router.get("/talents/:id", async (req: Request, res: Response) => {

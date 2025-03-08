@@ -37,17 +37,6 @@ async function main() {
     password: DB_PASS as string,
     database: DB_NAME as string,
   });
-
-  // const talentID = 1;
-  // const sql = `SELECT * FROM talents WHERE id = ${talentID}`;
-
-  // connection.query<RowDataPacket[]>(sql, (_err, rows) => {
-  //   console.log(rows);
-  // });
-
-  // app.get("/", async (req, res) => {
-  //   res.json("test");
-  // });
   const repository = new TalentsRepository(connection);
   const service = new TalentsService(repository);
   const controller = new TalentsController(service);
