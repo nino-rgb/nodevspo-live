@@ -46,3 +46,9 @@
 - AWS
 - ページ遷移作成
 - 検索機能追加
+
+- youtubeapi各チャネルからのアーカイブライブ配信取得
+  curl \
+   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCIjdfjcSaEgdjwbgjxC3ZWg&eventType=completed&maxResults=25&q=VSPO!%20SHOWDOWN&type=video&key=[YOUR_API_KEY]' \
+   --header 'Accept: application/json' \
+   --compressed

@@ -25,8 +25,8 @@ async function main() {
 
   app.use(cors(corsOptions));
 
-  const sever = app.listen(parseInt(PORT as string), () => {
-    const address = sever.address() as AddressInfo;
+  const server = app.listen(parseInt(PORT as string), () => {
+    const address = server.address() as AddressInfo;
     console.log("Node.js is listening to PORT:" + address.port);
   });
 
