@@ -1,8 +1,8 @@
 CREATE TABLE `talents` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL DEFAULT '',
-  `youtube_profile` text NOT DEFAULT '',
-  `official_profile`  text NOT NULL,
+  `youtube_profile` varchar(255) NOT NULL DEFAULT '',
+  `official_profile` text NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
