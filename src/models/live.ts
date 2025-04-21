@@ -7,17 +7,8 @@ export type Talents = {
   updetaedAtt?: Date;
 };
 
-export type Games = {
+export type Archives = {
   id?: number;
-  title: string;
-  createdAt?: Date;
-  updetaedAtt?: Date;
-};
-
-export type TalentGames = {
-  id?: number;
-  talents_id: number;
-  games_id: number;
-  createdAt?: Date;
-  updetaedAtt?: Date;
+  outerlink: string;
+  channelId: string;
 };

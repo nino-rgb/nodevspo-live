@@ -6,6 +6,9 @@ import { AddressInfo } from "net";
 import { TalentsRepository } from "./repositories/database/talent/talentRepository";
 import { TalentsService } from "./services/talent/talentsService";
 import { TalentsController } from "./controllers/talentController";
+import { ArchivesReoisitory } from "../src/repositories/database/archive/archiveRepository";
+import { ArchivesService } from "../src/services/archive/archivesService";
+import { ArchivesController } from "../src/controllers/archivesControllers";
 
 async function main() {
   dotenv.config();
@@ -37,9 +40,14 @@ async function main() {
     password: DB_PASS as string,
     database: DB_NAME as string,
   });
-  const repository = new TalentsRepository(connection);
-  const service = new TalentsService(repository);
-  const controller = new TalentsController(service);
-  app.use("/api/", controller.router);
+  const talentrepository = new TalentsRepository(connection);
+  const talentservice = new TalentsService(talentrepository);
+  const talentcontroller = new TalentsController(talentservice);
+  app.use("/api/", talentcontroller.router);
+
+  const archiverepository = new ArchivesReoisitory(connection);
+  const archiveservice = new ArchivesService(archiverepository);
+  const archivecontroller = new ArchivesController(archiveservice);
+  app.use("/api/", archivecontroller.router);
 }
 main();
