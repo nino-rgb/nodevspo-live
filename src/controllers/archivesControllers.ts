@@ -12,7 +12,12 @@ export class ArchivesController {
     this.router = Router();
 
     this.router.get("/archives", async (req: Request, res: Response) => {
-      const result = await this.archiveService.findAll();
+      const offset = req.query.offset as string;
+      console.log(offset);
+      if (offset == null) {
+        res.status(400).json("offset is undefined");
+      }
+      const result = await this.archiveService.fetch(offset);
 
       if (result instanceof Error) {
         res.status(500).json(result.message);

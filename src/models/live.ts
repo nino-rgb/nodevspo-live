@@ -4,11 +4,16 @@ export type Talents = {
   youtube_profile: string;
   official_profile: string;
   createdAt?: Date;
-  updetaedAtt?: Date;
+  updetaedAt?: Date;
 };
 
 export type Archives = {
   id?: number;
-  outerlink: string;
-  channelId: string;
+  outer_link: string;
+  talents_id: string;
+  video_title: string;
+  video_thumbnail: string;
+  open_date: Date;
+  createdAt?: Date;
+  updetaedAt?: Date;
 };

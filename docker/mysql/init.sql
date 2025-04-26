@@ -21,6 +21,18 @@ CREATE TABLE `archives` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `nowstreamings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `outer_link` varchar(255) NOT NULL DEFAULT '',
+  `talents_id` int NOT NULL,
+  `video_title` varchar(255) NOT NULL,
+  `video_thumbnail` varchar(255) NOT NULL,
+  `open_date` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO `talents` (`name`, `youtube_profile`, `official_profile`) VALUES
 ('花芽すみれ','おいす～花芽すみれです。 ゲームが好きです👾💤','花芽姉妹の姉。普段は落ち着いているが、たまにハイテンションで無邪気な一面も。なんでもそつなくこなす器用な女の子。「ぶいすぽっ！」の天才(?)兼ポンコツ担当。FPSゲームでは持ち前のエイムを生かした爽快感抜群のプレーを見せる。'),
 ('花芽なずな','ぶいすぽ所属最年少!5歳可愛い担当花芽なずな好きなゲームはFPS全般!↓主にプレイするゲーム【COD、PUBG、APEX、R6s、VALORANT、CSGO、スプラトゥーン、シャドーバース】よかったらチャンネル登録してね☆','きゃっほー☆きらりんぶぃ!ゲームの中でも特にFPSが大好きで、FPS系ゲームのプレイ時間は全VTuberの中でもトップクラス。本人はいたって真面目だが、いつもおちゃらけているように見られる。自称「ぶいすぽっ!」の姫'),
@@ -46,5 +58,9 @@ INSERT INTO `talents` (`name`, `youtube_profile`, `official_profile`) VALUES
 ('蝶屋はなび','','元気さと誠実さを兼ね備えた、文武両道ガール。何事にも全力、猪突猛進スタイル。好きな食べ物はめっちゃたこ焼き'),
 ('甘結もか','','格闘ゲームに人生を捧げる女の子。穏やかな話し方の反面、好きなことに対しては納得がいくまで突き詰めるストイックな性格。集中しすぎるあまりそれ以外のことは頭から抜けてしまうことも。');
 
-INSERT INTO `archives` (`outer_link`) VALUES
-('https://youtu.be/2Jcm_ssVYd8?si=AjhWE_s2t6n1LxUS');
+INSERT INTO `archives` (`outer_link`, `talents_id`, `video_title`, `video_thumbnail`, `open_date`) VALUES
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '【2視点', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/25 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'Switch2', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/26 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '落選', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/27 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'sasakisaku', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/28 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'kuzuha', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/29 ');

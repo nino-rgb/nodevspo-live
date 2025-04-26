@@ -1,5 +1,5 @@
 import { Archives } from "models/live";
 
 export interface IArchiveRepository {
-  findAll(): Promise<Archives[] | Error>;
+  fetch(offset: string): Promise<Archives[] | Error>;
 }
