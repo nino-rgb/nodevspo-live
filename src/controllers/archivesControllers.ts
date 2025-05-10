@@ -1,7 +1,5 @@
 import { Router, Request, Response } from "express";
-import { NotFoundDataError } from "../utils/error";
 import { ArchivesService } from "services/archive/archivesService";
-import { IArchiveService } from "services/archive/archivesInterface";
 
 export class ArchivesController {
   private archiveService: ArchivesService;

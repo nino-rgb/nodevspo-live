@@ -17,3 +17,14 @@ export type Archives = {
   createdAt?: Date;
   updetaedAt?: Date;
 };
+
+export type Nowstreamings = {
+  id?: number;
+  outer_link: string;
+  talents_id: string;
+  video_title: string;
+  video_thumbnail: string;
+  open_date: Date;
+  createdAt?: Date;
+  updetaedAt?: Date;
+};
