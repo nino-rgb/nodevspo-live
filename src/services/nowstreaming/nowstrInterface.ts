@@ -1,5 +1,5 @@
-import { Nowstreamings } from "models/live";
+import { Nowstreaming } from "models/live";
 
 export interface INowstrService {
-  fetch(offset: string): Promise<Nowstreamings[] | Error>;
+  fetch(offset: string): Promise<Nowstreaming[] | Error>;
 }

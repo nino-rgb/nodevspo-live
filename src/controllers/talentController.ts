@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
-import { TalentsService } from "../services/talent/talentsService";
+import { TalentService } from "../services/talent/talentsService";
 import { NotFoundDataError } from "../utils/error";
 
 export class TalentsController {
-  private talentsService: TalentsService;
+  private talentsService: TalentService;
   public router: Router;
 
-  constructor(talentsService: TalentsService) {
+  constructor(talentsService: TalentService) {
     this.talentsService = talentsService;
     this.router = Router();
 

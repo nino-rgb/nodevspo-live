@@ -1,11 +1,11 @@
 import { Router, Request, Response } from "express";
-import { ArchivesService } from "services/archive/archivesService";
+import { ArchiveService } from "services/archive/archivesService";
 
 export class ArchivesController {
-  private archiveService: ArchivesService;
+  private archiveService: ArchiveService;
   public router: Router;
 
-  constructor(archivesServise: ArchivesService) {
+  constructor(archivesServise: ArchiveService) {
     this.archiveService = archivesServise;
     this.router = Router();
 

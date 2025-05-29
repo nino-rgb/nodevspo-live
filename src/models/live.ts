@@ -1,4 +1,4 @@
-export type Talents = {
+export type Talent = {
   id?: number;
   name: string;
   youtube_profile: string;
@@ -7,7 +7,7 @@ export type Talents = {
   updetaedAt?: Date;
 };
 
-export type Archives = {
+export type Archive = {
   id?: number;
   outer_link: string;
   talents_id: string;
@@ -18,7 +18,7 @@ export type Archives = {
   updetaedAt?: Date;
 };
 
-export type Nowstreamings = {
+export type Nowstreaming = {
   id?: number;
   outer_link: string;
   talents_id: string;

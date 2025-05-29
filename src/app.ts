@@ -1,13 +1,13 @@
 import express, { Express } from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import mysql, { RowDataPacket } from "mysql2/promise";
+import mysql from "mysql2/promise";
 import { AddressInfo } from "net";
-import { TalentsRepository } from "./repositories/database/talent/talentRepository";
-import { TalentsService } from "./services/talent/talentsService";
+import { TalentRepository } from "./repositories/database/talent/talentRepository";
+import { TalentService } from "./services/talent/talentsService";
 import { TalentsController } from "./controllers/talentController";
-import { ArchivesRepoisitory } from "../src/repositories/database/archive/archiveRepository";
-import { ArchivesService } from "../src/services/archive/archivesService";
+import { ArchiveRepoisitory } from "../src/repositories/database/archive/archiveRepository";
+import { ArchiveService } from "../src/services/archive/archivesService";
 import { ArchivesController } from "../src/controllers/archivesControllers";
 import { NowstrController } from "../src/controllers/nowstrControllers";
 import { NowstrService } from "../src/services/nowstreaming/nowstrService";
@@ -43,13 +43,13 @@ async function main() {
     password: DB_PASS as string,
     database: DB_NAME as string,
   });
-  const talentrepository = new TalentsRepository(connection);
-  const talentservice = new TalentsService(talentrepository);
+  const talentrepository = new TalentRepository(connection);
+  const talentservice = new TalentService(talentrepository);
   const talentcontroller = new TalentsController(talentservice);
   app.use("/api/", talentcontroller.router);
 
-  const archiverepository = new ArchivesRepoisitory(connection);
-  const archiveservice = new ArchivesService(archiverepository);
+  const archiverepository = new ArchiveRepoisitory(connection);
+  const archiveservice = new ArchiveService(archiverepository);
   const archivecontroller = new ArchivesController(archiveservice);
   app.use("/api/", archivecontroller.router);
 
