@@ -1,6 +1,8 @@
 import { ArchiveService } from "services/archive/archivesService";
 import { Archive } from "models/live";
 import { IArchiveRepository } from "repositories/database/archive/archiveInterface";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 function createMockRepository(): IArchiveRepository {
   const mockRepository: IArchiveRepository = {
@@ -16,7 +18,7 @@ function createMockArchiveList(num: number): Archive[] {
     const archive: Archive = {
       id: index,
       outer_link: `outer_link_${index}`,
-      talents_id: `talents_id_${index}`,
+      talents_id: index + 1,
       video_title: `video_title_${index}`,
       video_thumbnail: `video_thumbnail_${index}`,
       open_date: new Date(),
@@ -34,7 +36,7 @@ describe("ArchiveService", () => {
       mockRepository.fetch = jest.fn().mockResolvedValue(archiveList);
 
       const service = new ArchiveService(mockRepository);
-      const result = await service.fetch("1");
+      const result = await service.fetch(1);
 
       if (result instanceof Error) {
         throw new Error(`Test failed because an error has occurred: ${result.message}`);
@@ -56,7 +58,7 @@ describe("ArchiveService", () => {
       mockRepository.fetch = jest.fn().mockResolvedValue(new Error("repository error"));
 
       const service = new ArchiveService(mockRepository);
-      const result = await service.fetch("1");
+      const result = await service.fetch(1);
 
       if (!(result instanceof Error)) {
         throw new Error("Test failed because an error has not occurred");

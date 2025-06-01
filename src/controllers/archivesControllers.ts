@@ -10,10 +10,12 @@ export class ArchivesController {
     this.router = Router();
 
     this.router.get("/archives", async (req: Request, res: Response) => {
-      const offset = req.query.offset as string;
-      console.log(offset);
-      if (offset == null) {
-        res.status(400).json("offset is undefined");
+      const offsetParam = req.query.offset;
+      const offset = offsetParam ? parseInt(offsetParam as string, 10) : 0;
+
+      if (isNaN(offset)) {
+        res.status(400).json("Invalid offset parameter");
+        return;
       }
       const result = await this.archiveService.fetch(offset);
 

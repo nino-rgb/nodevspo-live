@@ -8,7 +8,7 @@ export class NowstrRepository {
     this.connection = connection;
   }
 
-  public async fetch(offset: string): Promise<Nowstreaming[] | Error> {
+  public async fetch(offset: number): Promise<Nowstreaming[] | Error> {
     try {
       const sql = `SELECT * FROM nowstreamings ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
       const [rows] = await this.connection.execute<Nowstreaming[] & RowDataPacket[]>(sql);

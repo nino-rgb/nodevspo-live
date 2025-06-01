@@ -1,5 +1,5 @@
 import { Nowstreaming } from "models/live";
 
 export interface INowstrService {
-  fetch(offset: string): Promise<Nowstreaming[] | Error>;
+  fetch(offset: number): Promise<Nowstreaming[] | Error>;
 }

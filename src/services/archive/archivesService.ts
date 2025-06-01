@@ -9,7 +9,7 @@ export class ArchiveService implements IArchiveService {
     this.archiveRepository = archiveRepository;
   }
 
-  public async fetch(offset: string): Promise<Archive[] | Error> {
+  public async fetch(offset: number): Promise<Archive[] | Error> {
     const result = await this.archiveRepository.fetch(offset);
     return result;
   }

@@ -15,7 +15,7 @@ CREATE TABLE `archives` (
   `talents_id` int NOT NULL,
   `video_title` varchar(255) NOT NULL,
   `video_thumbnail` varchar(255) NOT NULL,
-  `open_date` datetime NOT NULL,
+  `open_date` datetime(6),
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -27,7 +27,7 @@ CREATE TABLE `nowstreamings` (
   `talents_id` int NOT NULL,
   `video_title` varchar(255) NOT NULL,
   `video_thumbnail` varchar(255) NOT NULL,
-  `open_date` datetime NOT NULL,
+  `open_date` datetime(6),
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)

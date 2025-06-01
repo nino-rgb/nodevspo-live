@@ -10,21 +10,21 @@ export type Talent = {
 export type Archive = {
   id?: number;
   outer_link: string;
-  talents_id: string;
+  talents_id: number;
   video_title: string;
   video_thumbnail: string;
   open_date: Date;
   createdAt?: Date;
-  updetaedAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Nowstreaming = {
   id?: number;
   outer_link: string;
-  talents_id: string;
+  talents_id: number;
   video_title: string;
   video_thumbnail: string;
   open_date: Date;
   createdAt?: Date;
-  updetaedAt?: Date;
+  updatedAt?: Date;
 };

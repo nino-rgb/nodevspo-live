@@ -8,9 +8,13 @@ export class ArchiveRepoisitory {
     this.connection = connection;
   }
 
-  public async fetch(offset: string): Promise<Archive[] | Error> {
+  public async fetch(offset: number): Promise<Archive[] | Error> {
+    if (typeof offset !== "number") {
+      return new Error(`Offset must be a number, but got: ${typeof offset}`);
+    }
+
     try {
-      const sql = `SELECT * FROM archives ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
+      const sql = `SELECT * FROM archives ORDER BY open_date DESC, id LIMIT 30 OFFSET ${offset}`;
       const [rows] = await this.connection.execute<Archive[] & RowDataPacket[]>(sql);
       return rows;
     } catch (error) {

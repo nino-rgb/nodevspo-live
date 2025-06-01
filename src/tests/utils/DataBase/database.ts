@@ -1,16 +1,34 @@
 import * as dotenv from "dotenv";
-import { createConnection, Connection } from "mysql2/promise";
+dotenv.config();
+import { createConnection } from "mysql2/promise";
 
-export async function createDBConnection(): Promise<Connection> {
-  dotenv.config();
-  const { PORT, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
+export async function createDBConnection() {
+  const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
 
-  const connection = await createConnection({
-    host: DB_HOST as string,
-    port: parseInt(DB_PORT as string),
-    user: DB_USER as string,
-    password: DB_PASS as string,
-    database: DB_NAME as string,
+  console.log("DB ENV CHECK", {
+    DB_HOST,
+    DB_PORT,
+    DB_USER,
+    DB_PASS,
+    DB_NAME,
   });
-  return connection;
+
+  if (!DB_HOST || !DB_PORT || !DB_USER || !DB_PASS || !DB_NAME) {
+    throw new Error("環境変数が不足しています");
+  }
+
+  try {
+    const connection = await createConnection({
+      host: DB_HOST,
+      port: parseInt(DB_PORT),
+      user: DB_USER,
+      password: DB_PASS,
+      database: DB_NAME,
+    });
+
+    return connection;
+  } catch (err) {
+    console.error("DB接続失敗:", err);
+    throw err;
+  }
 }

@@ -10,7 +10,21 @@
     "strict": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "baseUrl": "src",
+    "baseUrl": "./src",
+    "paths": {
+      "services/*": [
+        "services/*"
+      ],
+      "repositories/*": [
+        "repositories/*"
+      ],
+      "tests/*": [
+        "tests/*"
+      ],
+      "models/*": [
+        "models/*"
+      ]
+    },
     "downlevelIteration": true,
     "incremental": true
   },
