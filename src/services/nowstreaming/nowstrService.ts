@@ -1,7 +1,6 @@
 import { Nowstreaming } from "models/live";
 import { INowstrRepository } from "repositories/database/nowstreaming/nowstrInterface";
 import { INowstrService } from "./nowstrInterface";
-import { off } from "process";
 
 export class NowstrService implements INowstrService {
   private nowstrRepository: INowstrRepository;

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.ts",
   "scripts": {
-    "test": " TZ=UTC jest tests --coverage --runInBand --forceExit --detectOpenHandles",
+    "test": " TZ=UTC jest tests --coverage --runInBand ",
     "start": "node dist/src/app.js",
     "build": "tsc",
     "dev": "nodemon src/app.ts",

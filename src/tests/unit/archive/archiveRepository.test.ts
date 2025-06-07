@@ -5,6 +5,7 @@ import { Connection } from "mysql2/promise";
 import { createDBConnection } from "../../utils/DataBase/database";
 import { createArchiveTestData } from "../../utils/testData/createArchiveTestData";
 import { ArchiveRepoisitory } from "../../../repositories/database/archive/archiveRepository";
+import { SqlError } from "utils/error";
 
 let connection: Connection;
 
@@ -47,15 +48,36 @@ describe("ArichiveRepository", () => {
       }
     });
 
-    // it("should return empty", async () => {
-    //   const repository = new ArchiveRepoisitory(connection);
+    it("should return empty", async () => {
+      const repository = new ArchiveRepoisitory(connection);
 
-    //   const result = await repository.fetch("1");
-    //   // if (result instanceof Error) {
-    //   //   throw new Error(`Test failed because an error has occurred: ${result.message}`);
-    //   // }
+      const result = await repository.fetch(0);
+      if (result instanceof Error) {
+        throw new Error(`Test failed because an error has occurred: ${result.message}`);
+      }
 
-    //   expect(result.length).toBe(0);
-    // });
+      expect(result.length).toBe(0);
+    });
+
+    it("should return error if offset is not number", async () => {
+      const repository = new ArchiveRepoisitory(connection);
+
+      const result = await repository.fetch("notnumber" as any);
+
+      expect(result).toBeInstanceOf(Error);
+      expect((result as Error).message).toMatch(/Offset must be a number/);
+    });
+
+    it("should return sqlError", async () => {
+      const mockConnection = {
+        excute: jest.fn().mockRejectedValue(new Error("Mocked SQL Error")),
+      } as unknown as Connection;
+
+      const repository = new ArchiveRepoisitory(mockConnection);
+
+      const result = await repository.fetch(0);
+
+      expect(result instanceof SqlError).toBeTruthy();
+    });
   });
 });

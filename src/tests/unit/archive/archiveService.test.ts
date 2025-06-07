@@ -36,7 +36,7 @@ describe("ArchiveService", () => {
       mockRepository.fetch = jest.fn().mockResolvedValue(archiveList);
 
       const service = new ArchiveService(mockRepository);
-      const result = await service.fetch(1);
+      const result = await service.fetch(0);
 
       if (result instanceof Error) {
         throw new Error(`Test failed because an error has occurred: ${result.message}`);
@@ -58,7 +58,7 @@ describe("ArchiveService", () => {
       mockRepository.fetch = jest.fn().mockResolvedValue(new Error("repository error"));
 
       const service = new ArchiveService(mockRepository);
-      const result = await service.fetch(1);
+      const result = await service.fetch(0);
 
       if (!(result instanceof Error)) {
         throw new Error("Test failed because an error has not occurred");

@@ -14,11 +14,11 @@ export class ArchiveRepoisitory {
     }
 
     try {
-      const sql = `SELECT * FROM archives ORDER BY open_date DESC, id LIMIT 30 OFFSET ${offset}`;
+      const sql = `SELECT * FROM archives ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
       const [rows] = await this.connection.execute<Archive[] & RowDataPacket[]>(sql);
       return rows;
     } catch (error) {
-      return new SqlError(`ArchiveRepository.fetch(offset: string) Error: ${error}`);
+      return new SqlError(`ArchiveRepository.fetch(offset: number) Error: ${error}`);
     }
   }
 }
