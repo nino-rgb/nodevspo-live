@@ -13,4 +13,8 @@ export class ArchiveService implements IArchiveService {
     const result = await this.archiveRepository.fetch(offset);
     return result;
   }
+
+  public async search(keyword: string): Promise<Archive[] | Error> {
+    return this.archiveRepository.searchByTitle(keyword);
+  }
 }
