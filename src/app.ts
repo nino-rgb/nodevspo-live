@@ -8,7 +8,7 @@ import { TalentService } from "./services/talent/talentsService";
 import { TalentsController } from "./controllers/talentController";
 import { ArchiveRepoisitory } from "../src/repositories/database/archive/archiveRepository";
 import { ArchiveService } from "../src/services/archive/archivesService";
-import { ArchivesController } from "../src/controllers/archivesControllers";
+import { ArchivesController } from "./controllers/archiveControllers";
 import { NowstrController } from "../src/controllers/nowstrControllers";
 import { NowstrService } from "../src/services/nowstreaming/nowstrService";
 import { NowstrRepository } from "../src/repositories/database/nowstreaming/nowstrRepository";
@@ -53,8 +53,8 @@ async function main() {
   const archivecontroller = new ArchivesController(archiveservice);
   app.use("/api/", archivecontroller.router);
 
-  const nowstrrepository = new NowstrRepository(connection);
-  const nowstrservice = new NowstrService(nowstrrepository);
+  const nowstrepository = new NowstrRepository(connection);
+  const nowstrservice = new NowstrService(nowstrepository);
   const nowstrcontroller = new NowstrController(nowstrservice);
   app.use("/api/", nowstrcontroller.router);
 }

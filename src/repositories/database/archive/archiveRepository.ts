@@ -21,4 +21,24 @@ export class ArchiveRepoisitory {
       return new SqlError(`ArchiveRepository.fetch(offset: number) Error: ${error}`);
     }
   }
+
+  public async searchByTitle(keyword: string): Promise<Archive[] | Error> {
+    if (typeof keyword !== "string" || keyword.trim() === "") {
+      return new Error(`keyword must be a string, but got: ${typeof keyword}`);
+    }
+
+    try {
+      const offset = 0;
+      const sql = `SELECT * FROM archives WHERE video_title LIKE ? ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
+      const values = [`%${keyword}%`];
+      console.log("keyword:", keyword);
+      console.log("SQL:", sql);
+      console.log("values:", values);
+      const [rows] = await this.connection.execute<Archive[] & RowDataPacket[]>(sql, values);
+      console.log("結果行数:", rows.length);
+      return rows;
+    } catch (error) {
+      return new SqlError(`ArchiveRepository.searchByTitle(keyword: string) Error: ${error}`);
+    }
+  }
 }
