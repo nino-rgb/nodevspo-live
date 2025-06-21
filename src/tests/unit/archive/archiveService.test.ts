@@ -7,6 +7,7 @@ dotenv.config();
 function createMockRepository(): IArchiveRepository {
   const mockRepository: IArchiveRepository = {
     fetch: jest.fn().mockRejectedValue(new Error("function not implemented")),
+    searchByTitle: jest.fn().mockRejectedValue(new Error("funnction not implemented")),
   };
   return mockRepository;
 }

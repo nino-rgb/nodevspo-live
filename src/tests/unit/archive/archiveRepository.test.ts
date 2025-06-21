@@ -6,6 +6,7 @@ import { createDBConnection } from "../../utils/DataBase/database";
 import { createArchiveTestData } from "../../utils/testData/createArchiveTestData";
 import { ArchiveRepoisitory } from "../../../repositories/database/archive/archiveRepository";
 import { SqlError } from "utils/error";
+import { NowstrRepository } from "repositories/database/nowstreaming/nowstrRepository";
 
 let connection: Connection;
 
@@ -33,7 +34,6 @@ describe("ArichiveRepository", () => {
 
       expect(result.length).toBe(5);
       for (let index = 0; index < 5; index++) {
-        // const expectArchive = createArchiveList.filter((t) => t.id === archive.id)[0];
         const gotArchive = result[index];
         const expectArchive = expectedList[index];
         expect(gotArchive.id).toBe(expectArchive.id);
@@ -76,6 +76,74 @@ describe("ArichiveRepository", () => {
       const repository = new ArchiveRepoisitory(mockConnection);
 
       const result = await repository.fetch(0);
+
+      expect(result instanceof SqlError).toBeTruthy(); //toBeTruthyはtoBeよりざっくりtrueかを確認
+    });
+  });
+
+  describe("searchByTitle(keyword: string", () => {
+    it("should retrun macth archives", async () => {
+      const repository = new ArchiveRepoisitory(connection);
+      await connection.query(`
+        INSERT INTO archives (outer_link, talents_id, video_title, video_thumbnail, open_date)
+        VALUES 
+        ("link_1", 1, "kuzuha is got", "thumb_1", "2025-06-01 00:00:00"),
+        ("link_2", 1, "not related", "thumb_2", "2025-06-02 00:00:00")
+      `); //タイトルを指定するためにここでテストデータを代入
+
+      const result = await repository.searchByTitle("kuzuha"); //1件目にkuzuhaがあるのでKuzuhaで検索
+
+      if (result instanceof Error) {
+        throw new Error(`Test failed: ${result.message}`);
+      }
+
+      expect(result.length).toBe(1);
+      expect(result[0].video_title).toContain("kuzuha");
+    });
+
+    it("should retrun empty if archives no match", async () => {
+      //検索したが対象のデータがない
+      const repository = new ArchiveRepoisitory(connection);
+      await createArchiveTestData(connection, 5);
+      const result = await repository.searchByTitle("not data character"); //タイトルにないキーワード(not data character)で検索にかからないようにする
+
+      if (result instanceof Error) {
+        throw new Error(`Test failed: ${result.message}`);
+      }
+
+      expect(result.length).toBe(0);
+    });
+
+    it("should return archives in desc open_date order", async () => {
+      //検索したデータが降順で返って来ているかの確認
+      const repository = new ArchiveRepoisitory(connection);
+      await connection.query(`
+        INSERT INTO archives (outer_link, talents_id, video_title, video_thumbnail, open_date)
+        VALUES 
+        ("link_1", 1, "kuzuha", "thumb_1", "2025-06-01 00:00:00"),
+        ("link_2", 1, "kuzuha", "thumb_2", "2025-05-01 00:00:00")
+      `);
+
+      const result = await repository.searchByTitle("kuzuha");
+
+      if (result instanceof Error) {
+        throw new Error(`Test Failed: ${result.message}`);
+      }
+
+      const date1 = new Date(result[0].open_date);
+      const date2 = new Date(result[1].open_date);
+
+      expect(date1.getTime()).toBeGreaterThan(date2.getTime());
+    });
+
+    it("should return Sql Error", async () => {
+      const mockConnection = {
+        excute: jest.fn().mockRejectedValue(new Error("Mocked SQL Error")),
+      } as unknown as Connection;
+
+      const repository = new ArchiveRepoisitory(mockConnection);
+
+      const result = await repository.searchByTitle("any");
 
       expect(result instanceof SqlError).toBeTruthy();
     });
