@@ -1,4 +1,3 @@
-import { error } from "console";
 import { Router, Request, Response } from "express";
 import { NowstrService } from "services/nowstreaming/nowstrService";
 
@@ -40,6 +39,7 @@ export class NowstrController {
         res.status(500).json({ error: result.message });
         return;
       }
+      res.status(200).json(result);
     });
   }
 }

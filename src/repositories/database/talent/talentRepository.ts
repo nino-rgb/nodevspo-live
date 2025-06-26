@@ -32,4 +32,23 @@ export class TalentRepository {
       return new SqlError(`TalentRepository.getById(): ${error}`);
     }
   }
+
+  public async searchByName(keyword: string): Promise<Talent[] | Error> {
+    if (typeof keyword !== "string" || keyword.trim() === "") {
+      return new Error(`keyword must be a string, but got: ${keyword}`);
+    }
+
+    try {
+      const sql = `SELECT * FROM talents WHERE name LIKE ? `;
+      const values = [`%${keyword}%`];
+      console.log("keyword:", keyword);
+      console.log("SQL:", sql);
+      console.log("values:", values);
+      const [rows] = await this.connection.execute<Talent[] & RowDataPacket[]>(sql, values);
+      console.log("結果件数:", rows.length);
+      return rows;
+    } catch (error) {
+      return new SqlError(`TalentRepository.searchByName(keyword: string) Error: ${error}`);
+    }
+  }
 }

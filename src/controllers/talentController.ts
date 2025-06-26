@@ -20,6 +20,24 @@ export class TalentsController {
       res.status(200).json(result);
     });
 
+    this.router.get("/talents/search", async (req: Request, res: Response) => {
+      const keyword = req.query.keyword as string;
+
+      if (!keyword || typeof keyword !== "string" || keyword.trim() === "") {
+        res.status(400).json({ error: "Missing or invalid 'keyword' parameter" });
+        return;
+      }
+
+      const result = await this.talentsService.search(keyword.toString());
+
+      if (result instanceof Error) {
+        console.error("検索エラー:", result.message);
+        res.status(500).json({ error: result.message });
+        return;
+      }
+      res.status(200).json(result);
+    });
+
     this.router.get("/talents/:id", async (req: Request, res: Response) => {
       const id = parseInt(req.params.id);
       const result = await this.talentsService.getById(id);

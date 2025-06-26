@@ -25,7 +25,7 @@ export class NowstrRepository {
 
     try {
       const offset = 0;
-      const sql = `SELECT * FROM nowstreamigs WHERE video_title LIKE ? ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
+      const sql = `SELECT * FROM nowstreamings WHERE video_title LIKE ? ORDER BY open_date DESC LIMIT 30 OFFSET ${offset}`;
       const values = [`%${keyword}%`];
       console.log("keyword:", keyword);
       console.log("SQL:", sql);
