@@ -1,3 +1,4 @@
+import { error } from "console";
 import { Router, Request, Response } from "express";
 import { NowstrService } from "services/nowstreaming/nowstrService";
 
@@ -23,6 +24,22 @@ export class NowstrController {
         return;
       }
       res.status(200).json(result);
+    });
+
+    this.router.get("/nowstreamings/search", async (req: Request, res: Response) => {
+      const keyword = req.query.keyword as string;
+
+      if (!keyword || typeof keyword !== "string" || keyword.trim() === "") {
+        res.status(400).json({ error: "Missing or invalid 'keyword' parameter" });
+        return;
+      }
+      const result = await this.nowstrService.search(keyword.toString());
+
+      if (result instanceof Error) {
+        console.error("研削エラー:", result.message);
+        res.status(500).json({ error: result.message });
+        return;
+      }
     });
   }
 }

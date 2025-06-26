@@ -14,4 +14,8 @@ export class NowstrService implements INowstrService {
     const result = await this.nowstrRepository.fetch(offset);
     return result;
   }
+
+  public async search(keyword: string): Promise<Nowstreaming[] | Error> {
+    return this.nowstrRepository.searchByTitle(keyword);
+  }
 }
