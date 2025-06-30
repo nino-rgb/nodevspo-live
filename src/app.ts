@@ -47,6 +47,7 @@ async function main() {
   const talentservice = new TalentService(talentrepository);
   const talentcontroller = new TalentsController(talentservice);
   app.use("/api/", talentcontroller.router);
+
   const archiverepository = new ArchiveRepoisitory(connection);
   const archiveservice = new ArchiveService(archiverepository);
   const archivecontroller = new ArchivesController(archiveservice);

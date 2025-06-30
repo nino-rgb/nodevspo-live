@@ -17,4 +17,8 @@ export class ArchiveService implements IArchiveService {
   public async search(keyword: string): Promise<Archive[] | Error> {
     return this.archiveRepository.searchByTitle(keyword);
   }
+
+  public async fetchByTalentId(talentId: number): Promise<Archive[] | Error> {
+    return this.archiveRepository.fetchByTalentId(talentId);
+  }
 }

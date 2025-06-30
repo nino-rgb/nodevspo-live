@@ -41,4 +41,14 @@ export class ArchiveRepoisitory {
       return new SqlError(`ArchiveRepository.searchByTitle(keyword: string) Error: ${error}`);
     }
   }
+
+  public async fetchByTalentId(talentId: number): Promise<Archive[] | Error> {
+    try {
+      const sql = `SELECT * FROM archives WHERE talent_id = ? ORDER BY open_date DESC LIMIT 30`;
+      const [rows] = await this.connection.execute<Archive[] & RowDataPacket[]>(sql, [talentId]);
+      return rows;
+    } catch (error) {
+      return new Error(`ArchiveRepository.fetchByTalentId(${talentId}) Error: ${error}`);
+    }
+  }
 }

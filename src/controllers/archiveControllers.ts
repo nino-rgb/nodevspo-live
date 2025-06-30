@@ -1,3 +1,4 @@
+import { error } from "console";
 import { Router, Request, Response } from "express";
 import { ArchiveService } from "services/archive/archivesService";
 
@@ -13,7 +14,7 @@ export class ArchivesController {
       const offsetParam = req.query.offset;
       const offset = offsetParam ? parseInt(offsetParam as string, 10) : 0;
 
-      if (isNaN(offset)) {
+      if (offset == null) {
         res.status(400).json("Invalid offset parameter");
         return;
       }
@@ -41,6 +42,25 @@ export class ArchivesController {
         return;
       }
 
+      res.status(200).json(result);
+    });
+
+    this.router.get("/archives/by-talent", async (req: Request, res: Response) => {
+      console.log("✅ /archives に到達");
+      const talentId = Number(req.query.talent_id);
+      console.log("✅ talentId:", talentId); // ← ここが NaN なら必ず全件になる
+      console.log("🎯 talent_id (from req.query):", req.query.talent_id);
+      console.log("🧪 parsed talentId:", talentId);
+      if (isNaN(talentId)) {
+        res.status(400).json({ error: "Invalid talent_id" });
+        return;
+      }
+      const result = await this.archiveService.fetchByTalentId(talentId);
+      if (result instanceof Error) {
+        console.error("検索エラー:", result.message);
+        res.status(500).json({ error: result.message });
+        return;
+      }
       res.status(200).json(result);
     });
   }
