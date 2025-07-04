@@ -37,4 +37,17 @@ export class NowstrRepository {
       return new SqlError(`NowstrRepository.searchByTitle(keyword: string) Error: ${error}`);
     }
   }
+
+  public async fetchByTalentId(talentId: number): Promise<Nowstreaming[] | Error> {
+    try {
+      const sql = `SELECT * FROM nowstreamings WHERE talent_id = ? ORDER BY open_date DESC LIMIT 30`;
+      console.log("SQL:", sql);
+      const [rows] = await this.connection.execute<Nowstreaming[] & RowDataPacket[]>(sql, [talentId]);
+      console.log("rows:", rows);
+
+      return rows;
+    } catch (error) {
+      return new Error(`NowstrRepository.fetchByTalentId(${talentId}) Error: ${error}`);
+    }
+  }
 }

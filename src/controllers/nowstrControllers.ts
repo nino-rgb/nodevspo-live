@@ -1,3 +1,4 @@
+import { error } from "console";
 import { Router, Request, Response } from "express";
 import { NowstrService } from "services/nowstreaming/nowstrService";
 
@@ -36,6 +37,25 @@ export class NowstrController {
 
       if (result instanceof Error) {
         console.error("研削エラー:", result.message);
+        res.status(500).json({ error: result.message });
+        return;
+      }
+      res.status(200).json(result);
+    });
+
+    this.router.get("/nowstreamings/by-talent", async (req: Request, res: Response) => {
+      const talentId = Number(req.query.talent_id);
+      console.log("✅ talentId:", talentId); // ← ここが NaN なら必ず全件になる
+      console.log("🎯 talent_id (from req.query):", req.query.talent_id);
+      console.log("🧪 parsed talentId:", talentId);
+
+      if (isNaN(talentId)) {
+        res.status(400).json({ error: "Invalid talent_id" });
+        return;
+      }
+      const result = await this.nowstrService.fetchByTalentId(talentId);
+      if (result instanceof Error) {
+        console.error("検索エラー:", result.message);
         res.status(500).json({ error: result.message });
         return;
       }

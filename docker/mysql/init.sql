@@ -68,7 +68,7 @@ INSERT INTO `archives` (`outer_link`, `talent_id`, `video_title`, `video_thumbna
 
 INSERT INTO `nowstreamings` (`outer_link`, `talent_id`, `video_title`, `video_thumbnail`, `open_date`) VALUES
 ('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '【2視点', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/25 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'Switch2', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/26 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '落選', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/27 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'sasakisaku', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/28 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', 'kuzuha', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/29 ');
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '2', 'Switch2', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/26 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '3', '落選', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/27 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '4', 'sasakisaku', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/28 '),
+('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '5', 'kuzuha', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/29 ');

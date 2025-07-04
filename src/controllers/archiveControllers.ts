@@ -46,7 +46,6 @@ export class ArchivesController {
     });
 
     this.router.get("/archives/by-talent", async (req: Request, res: Response) => {
-      console.log("✅ /archives に到達");
       const talentId = Number(req.query.talent_id);
       console.log("✅ talentId:", talentId); // ← ここが NaN なら必ず全件になる
       console.log("🎯 talent_id (from req.query):", req.query.talent_id);

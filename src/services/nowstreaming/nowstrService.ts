@@ -18,4 +18,8 @@ export class NowstrService implements INowstrService {
   public async search(keyword: string): Promise<Nowstreaming[] | Error> {
     return this.nowstrRepository.searchByTitle(keyword);
   }
+
+  public async fetchByTalentId(talentId: number): Promise<Nowstreaming[] | Error> {
+    return this.nowstrRepository.fetchByTalentId(talentId);
+  }
 }
