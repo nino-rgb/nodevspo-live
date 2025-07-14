@@ -3,7 +3,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": ["ts-jest", { tsconfig: "tsconfig.json" }],
   },
   moduleFileExtensions: ["ts", "js"],
-  testMatch: ["**/tests/**/*.test.+(ts|js)"],
+  testMatch: ["**/tests/**/*.test.(ts|js)"],
   testEnvironment: "node",
   moduleNameMapper: {
     '^services/(.*)$': '<rootDir>/src/services/$1',

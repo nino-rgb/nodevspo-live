@@ -6,12 +6,13 @@ import { AddressInfo } from "net";
 import { TalentRepository } from "./repositories/database/talent/talentRepository";
 import { TalentService } from "./services/talent/talentsService";
 import { TalentsController } from "./controllers/talentController";
-import { ArchiveRepoisitory } from "../src/repositories/database/archive/archiveRepository";
+import { ArchiveRepository } from "../src/repositories/database/archive/archiveRepository";
 import { ArchiveService } from "../src/services/archive/archivesService";
 import { ArchivesController } from "./controllers/archiveControllers";
 import { NowstrController } from "../src/controllers/nowstrControllers";
 import { NowstrService } from "../src/services/nowstreaming/nowstrService";
 import { NowstrRepository } from "../src/repositories/database/nowstreaming/nowstrRepository";
+import "./schedulers/youtubeScheduler";
 
 async function main() {
   dotenv.config();
@@ -48,7 +49,7 @@ async function main() {
   const talentcontroller = new TalentsController(talentservice);
   app.use("/api/", talentcontroller.router);
 
-  const archiverepository = new ArchiveRepoisitory(connection);
+  const archiverepository = new ArchiveRepository(connection);
   const archiveservice = new ArchiveService(archiverepository);
   const archivecontroller = new ArchivesController(archiveservice);
   app.use("/api/", archivecontroller.router);

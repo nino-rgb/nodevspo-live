@@ -21,4 +21,8 @@ export class ArchiveService implements IArchiveService {
   public async fetchByTalentId(talentId: number): Promise<Archive[] | Error> {
     return this.archiveRepository.fetchByTalentId(talentId);
   }
+
+  public async deleteByTalentId(talentId: number): Promise<void | Error> {
+    return this.archiveRepository.deleteByTalentId(talentId);
+  }
 }

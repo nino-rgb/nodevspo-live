@@ -1,7 +1,11 @@
 import { Archive } from "models/live";
 import { RowDataPacket, Connection } from "mysql2/promise";
 import { SqlError } from "../../../utils/error";
-export class ArchiveRepoisitory {
+import { emitWarning } from "process";
+export class ArchiveRepository {
+  bulkInsert(validArchives: Archive[]) {
+    throw new Error("Method not implemented.");
+  }
   private connection: Connection;
 
   constructor(connection: Connection) {
@@ -50,5 +54,29 @@ export class ArchiveRepoisitory {
     } catch (error) {
       return new Error(`ArchiveRepository.fetchByTalentId(${talentId}) Error: ${error}`);
     }
+  }
+
+  public async deleteByTalentId(talentId: number): Promise<void | Error> {
+    try {
+      const sql = `DELETE FROM archives WHERE talent_id ?`;
+      await this.connection.execute(sql, [talentId]);
+    } catch (error) {
+      return new SqlError(`ArchiveRepository.deleteByTalentId Error: ${error}`);
+    }
+  }
+
+  public async findExistingVideoIds(videoIds: string[]): Promise<string[]> {
+    if (videoIds.length === 0) return [];
+
+    const placeholders = videoIds.map(() => "?").join(",");
+    const links = videoIds.map((id) => `https://youtu.be/${id}`);
+
+    const [rows] = await this.connection.execute<{ outer_link: string }[] & RowDataPacket[]>(
+      `SELECT outer_link FROM archives WHERE outer_link IN (${placeholders})`,
+      links,
+    );
+
+    // "https://youtu.be/xxx" の形式から videoId だけ取り出して返す
+    return rows.map((row) => row.outer_link.replace("https://youtu.be/", ""));
   }
 }

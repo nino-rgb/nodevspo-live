@@ -4,7 +4,7 @@ dotenv.config();
 import { Connection } from "mysql2/promise";
 import { createDBConnection } from "../../utils/DataBase/database";
 import { createArchiveTestData } from "../../utils/testData/createArchiveTestData";
-import { ArchiveRepoisitory } from "../../../repositories/database/archive/archiveRepository";
+import { ArchiveRepository } from "../../../repositories/database/archive/archiveRepository";
 
 let connection: Connection;
 
@@ -20,7 +20,7 @@ afterEach(async () => {
 describe("ArichiveRepository", () => {
   describe("fetch(offset: number)", () => {
     it("should return 5 archive", async () => {
-      const repository = new ArchiveRepoisitory(connection);
+      const repository = new ArchiveRepository(connection);
       const createArchiveList = await createArchiveTestData(connection, 5);
 
       const result = await repository.fetch(0);
@@ -41,7 +41,7 @@ describe("ArichiveRepository", () => {
         expect(new Date(gotArchive.open_date).toISOString()).toBe(new Date(expectArchive.open_date).toISOString());
 
         expect(gotArchive.outer_link).toBe(expectArchive.outer_link);
-        expect(gotArchive.talents_id).toBe(expectArchive.talents_id);
+        expect(gotArchive.talent_id).toBe(expectArchive.talent_id);
         expect(gotArchive.video_thumbnail).toBe(expectArchive.video_thumbnail);
         expect(gotArchive.video_title).toBe(expectArchive.video_title);
       }

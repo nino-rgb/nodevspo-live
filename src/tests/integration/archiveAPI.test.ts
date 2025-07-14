@@ -41,7 +41,7 @@ describe("ArchiveApi", () => {
           if (expectArchie) {
             expect(archive.id).toBe(expectArchie.id);
             expect(archive.outer_link).toBe(expectArchie.outer_link);
-            expect(archive.talents_id).toBe(expectArchie.talents_id);
+            expect(archive.talent_id).toBe(expectArchie.talent_id);
             expect(archive.video_title).toBe(expectArchie.video_title);
             expect(archive.video_thumbnail).toBe(expectArchie.video_thumbnail);
             expect(new Date(archive.open_date).toISOString()).toBe(new Date(expectArchie.open_date).toISOString());
