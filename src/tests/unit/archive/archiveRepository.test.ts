@@ -2,7 +2,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import { Connection } from "mysql2/promise";
-import { createDBConnection } from "../../utils/DataBase/database";
+import { createDBConnection } from "../../../utils/database";
 import { createArchiveTestData } from "../../utils/testData/createArchiveTestData";
 import { ArchiveRepository } from "../../../repositories/database/archive/archiveRepository";
 

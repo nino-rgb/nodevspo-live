@@ -1,7 +1,5 @@
-import { error } from "console";
 import { Router, Request, Response } from "express";
 import { ArchiveService } from "services/archive/archivesService";
-import { PassThrough } from "stream";
 
 export class ArchivesController {
   private archiveService: ArchiveService;
@@ -12,17 +10,18 @@ export class ArchivesController {
     this.router = Router();
 
     this.router.get("/archives", async (req: Request, res: Response) => {
-      const offsetParam = req.query.offset;
-      const offset = offsetParam ? parseInt(offsetParam as string, 10) : 0;
+      // offset は string | string[] | undefined になり得るので正規化
+      const raw = Array.isArray(req.query.offset) ? req.query.offset[0] : req.query.offset;
+      const offset = raw !== undefined ? parseInt(raw as string, 10) : 0;
 
-      if (offset == null) {
-        res.status(400).json("Invalid offset parameter");
+      if (!Number.isFinite(offset) || offset < 0) {
+        res.status(400).json({ error: "Invalid offset parameter" });
         return;
       }
-      const result = await this.archiveService.fetch(offset);
 
+      const result = await this.archiveService.fetch(offset);
       if (result instanceof Error) {
-        res.status(500).json(result.message);
+        res.status(500).json({ error: result.message });
         return;
       }
       res.status(200).json(result);

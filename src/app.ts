@@ -12,10 +12,10 @@ import { ArchivesController } from "./controllers/archiveControllers";
 import { NowstrController } from "../src/controllers/nowstrControllers";
 import { NowstrService } from "../src/services/nowstreaming/nowstrService";
 import { NowstrRepository } from "../src/repositories/database/nowstreaming/nowstrRepository";
-import "./schedulers/youtubeScheduler";
+import "./services/outerdateselect//youtubeScheduler";
+dotenv.config();
 
 async function main() {
-  dotenv.config();
   const { PORT, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
 
   const app: Express = express();
@@ -44,6 +44,7 @@ async function main() {
     password: DB_PASS as string,
     database: DB_NAME as string,
   });
+
   const talentrepository = new TalentRepository(connection);
   const talentservice = new TalentService(talentrepository);
   const talentcontroller = new TalentsController(talentservice);
@@ -58,5 +59,9 @@ async function main() {
   const nowstrservice = new NowstrService(nowstrepository);
   const nowstrcontroller = new NowstrController(nowstrservice);
   app.use("/api/", nowstrcontroller.router);
+  app.use("/api", (req, _res, next) => {
+    console.log(`[API] ${req.method} ${req.path}  query=`, req.query);
+    next();
+  });
 }
 main();

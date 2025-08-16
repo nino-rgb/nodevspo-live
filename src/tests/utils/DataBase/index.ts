@@ -1,1 +1,1 @@
-export { createDBConnection } from "./database";
+export { createDBConnection } from "../../../utils/database";
