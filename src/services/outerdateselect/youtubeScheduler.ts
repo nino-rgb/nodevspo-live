@@ -4,6 +4,7 @@ import { YouTubeService } from "./youtubeArchiveService";
 import { ArchiveRepository } from "../../repositories/database/archive/archiveRepository";
 import { TalentRepository } from "../../repositories/database/talent/talentRepository";
 import { createDBConnection } from "../../utils/database";
+import { NowstrRepository } from "../../repositories/database/nowstreaming/nowstrRepository";
 
 (async () => {
   const connection = await createDBConnection();
@@ -11,6 +12,7 @@ import { createDBConnection } from "../../utils/database";
   const archiveRepo = new ArchiveRepository(connection);
   const talentRepo = new TalentRepository(connection);
   const youtubeService = new YouTubeService(talentRepo, archiveRepo);
+  const nowstrRepo = new NowstrRepository(connection);
   // 即時実行
   (async () => {
     const fetched = await FetchVideosByYoutube();
@@ -18,12 +20,19 @@ import { createDBConnection } from "../../utils/database";
     if (fetched instanceof Error) {
       console.error("即時実行 YouTube APIエラー:", fetched.message);
     } else {
-      const result = await youtubeService.saveValidVideos(fetched);
-      if (result instanceof Error) {
-        console.error("即時実行 保存エラー:", result.message);
+      const result1 = await youtubeService.saveValidArchives(fetched);
+      if (result1 instanceof Error) {
+        console.error("即時実行 保存エラー:", result1.message);
       } else {
         console.log("即時実行 初回保存完了");
       }
+    }
+
+    const result2 = await youtubeService.saveNowstreamings(fetched);
+    if (result2 instanceof Error) {
+      console.error("即時実行 保存エラー(nowstreamings):", result2.message);
+    } else {
+      console.log("即時実行 nowstreamings 保存完了");
     }
   })();
 
@@ -38,7 +47,7 @@ import { createDBConnection } from "../../utils/database";
       return;
     }
 
-    const result = await youtubeService.saveValidVideos(fetched);
+    const result = await youtubeService.saveValidArchives(fetched);
 
     if (result instanceof Error) {
       console.error("[cron] 保存エラー:", result.message);

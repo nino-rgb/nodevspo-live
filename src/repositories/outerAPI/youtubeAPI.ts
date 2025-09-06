@@ -10,7 +10,7 @@ export async function FetchVideosByYoutube(): Promise<FetchedVideo[] | Error> {
         key: process.env.YOUTUBE_API_KEY,
         part: "snippet",
         q: "ぶいすぽ",
-        eventType: "live",
+        eventType: "completed",
         order: "date",
         type: "video",
         maxResults: 50,
