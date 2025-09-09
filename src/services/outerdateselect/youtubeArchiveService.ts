@@ -56,7 +56,7 @@ export class YouTubeService {
     }
   }
 
-  public async saveValidNowstramings(fetchedVideos: FetchedVideo[]): Promise<void | Error> {
+  public async saveValidNowstreamings(fetchedVideos: FetchedVideo[]): Promise<void | Error> {
     try {
       const talents = await this.talentRepository.findAll();
 

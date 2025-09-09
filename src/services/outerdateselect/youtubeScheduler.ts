@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { FetchVideosByYoutube } from "../../repositories/outerAPI/youtubeAPI";
+import { FetchArchiveVideosByYoutube, FetchNowstrVideosByYoutube } from "../../repositories/outerAPI/youtubeAPI";
 import { YouTubeService } from "./youtubeArchiveService";
 import { ArchiveRepository } from "../../repositories/database/archive/archiveRepository";
 import { TalentRepository } from "../../repositories/database/talent/talentRepository";
@@ -11,28 +11,33 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
 
   const archiveRepo = new ArchiveRepository(connection);
   const talentRepo = new TalentRepository(connection);
-  const youtubeService = new YouTubeService(talentRepo, archiveRepo);
   const nowstrRepo = new NowstrRepository(connection);
+  const youtubeService = new YouTubeService(talentRepo, archiveRepo, nowstrRepo);
   // 即時実行
   (async () => {
-    const fetched = await FetchVideosByYoutube();
+    const fetchedArchives = await FetchArchiveVideosByYoutube();
+    const fetchedNowstreamings = await FetchNowstrVideosByYoutube();
 
-    if (fetched instanceof Error) {
-      console.error("即時実行 YouTube APIエラー:", fetched.message);
+    if (fetchedArchives instanceof Error) {
+      console.error("即時実行 YouTube APIエラー:", fetchedArchives.message);
     } else {
-      const result1 = await youtubeService.saveValidArchives(fetched);
+      const result1 = await youtubeService.saveValidArchives(fetchedArchives);
       if (result1 instanceof Error) {
-        console.error("即時実行 保存エラー:", result1.message);
+        console.error("即時実行 アーカイブ保存エラー:", result1.message);
       } else {
-        console.log("即時実行 初回保存完了");
+        console.log("即時実行 アーカイブ初回保存完了");
       }
     }
 
-    const result2 = await youtubeService.saveNowstreamings(fetched);
-    if (result2 instanceof Error) {
-      console.error("即時実行 保存エラー(nowstreamings):", result2.message);
+    if (fetchedNowstreamings instanceof Error) {
+      console.error("即時実行 YouTube APIエラー:", fetchedNowstreamings.message);
     } else {
-      console.log("即時実行 nowstreamings 保存完了");
+      const result1 = await youtubeService.saveValidNowstreamings(fetchedNowstreamings);
+      if (result1 instanceof Error) {
+        console.error("即時実行 配信中保存エラー:", result1.message);
+      } else {
+        console.log("即時実行 配信中初回保存完了");
+      }
     }
   })();
 
@@ -40,7 +45,7 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
   cron.schedule("0 * * * *", async () => {
     console.log("[cron] YouTube定期取得");
 
-    const fetched = await FetchVideosByYoutube();
+    const fetched = await FetchArchiveVideosByYoutube();
 
     if (fetched instanceof Error) {
       console.error("[cron] YouTube APIエラー:", fetched.message);
