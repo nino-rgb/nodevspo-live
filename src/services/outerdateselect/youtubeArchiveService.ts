@@ -67,7 +67,7 @@ export class YouTubeService {
       const channelIdMap = new Map<string, number>(talents.map((talent) => [talent.youtube_channel_id, talent.id]));
 
       const fetchedVideoIds = fetchedVideos.map((v) => v.videoId);
-      const existingVideoIds = await this.nowstrRepository.findExistingVideIds(fetchedVideoIds);
+      const existingVideoIds = await this.nowstrRepository.findExistingVideoIds(fetchedVideoIds);
       const ValidNowstramings: Nowstreaming[] = [];
 
       for (const video of fetchedVideos) {

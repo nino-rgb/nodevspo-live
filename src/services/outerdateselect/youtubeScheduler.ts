@@ -45,19 +45,34 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
   cron.schedule("0 * * * *", async () => {
     console.log("[cron] YouTube定期取得");
 
-    const fetched = await FetchArchiveVideosByYoutube();
+    const ArchiveFetched = await FetchArchiveVideosByYoutube();
 
-    if (fetched instanceof Error) {
-      console.error("[cron] YouTube APIエラー:", fetched.message);
+    if (ArchiveFetched instanceof Error) {
+      console.error("[cron] YouTube APIエラー:", ArchiveFetched.message);
       return;
     }
 
-    const result = await youtubeService.saveValidArchives(fetched);
+    const result1 = await youtubeService.saveValidArchives(ArchiveFetched);
 
-    if (result instanceof Error) {
-      console.error("[cron] 保存エラー:", result.message);
+    if (result1 instanceof Error) {
+      console.error("[cron] 保存エラー:", result1.message);
     } else {
       console.log("[cron] YouTubeアーカイブ保存完了");
+    }
+
+    const NowstrFetched = await FetchNowstrVideosByYoutube();
+
+    if (NowstrFetched instanceof Error) {
+      console.error("[cron] Youtube APIエラー:", NowstrFetched.message);
+      return;
+    }
+
+    const result2 = await youtubeService.saveValidNowstreamings(NowstrFetched);
+
+    if (result2 instanceof Error) {
+      console.error("[cron] 保存エラー:", result2.message);
+    } else {
+      console.log("[cron] Youtube配信中保存完了");
     }
   });
 })();

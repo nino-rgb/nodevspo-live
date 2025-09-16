@@ -51,13 +51,13 @@ export class NowstrRepository {
     }
   }
 
-  public async findExistingVideIds(videoIds: string[]): Promise<string[]> {
+  public async findExistingVideoIds(videoIds: string[]): Promise<string[]> {
     if (!Array.isArray(videoIds) || videoIds.length === 0) return [];
     const placeholders = videoIds.map(() => "?").join(",");
     const links = videoIds.map((id) => `https://youtu.be/${id}`);
 
     const [rows] = await this.connection.execute<({ outer_link: string } & RowDataPacket)[]>(
-      `SELECT outer_link FROM archives WHERE outer_link IN (${placeholders})`,
+      `SELECT outer_link FROM nowstreamings WHERE outer_link IN (${placeholders})`,
       links,
     );
 
