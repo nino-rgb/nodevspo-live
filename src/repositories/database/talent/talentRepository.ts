@@ -1,4 +1,4 @@
-import { RowDataPacket, Connection, ResultSetHeader } from "mysql2/promise";
+import { RowDataPacket, Connection } from "mysql2/promise";
 import { Talent } from "models/live";
 import { NotFoundDataError, SqlError } from "../../../utils/error";
 

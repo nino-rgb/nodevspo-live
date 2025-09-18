@@ -4,7 +4,8 @@ CREATE TABLE `talents` (
   `youtube_profile` varchar(255) NOT NULL DEFAULT '',
   `official_profile` text NOT NULL,
   `youtube_channel_id` varchar(100) NOT NULL DEFAULT '',
-  `twitch_channel_id` varchar(100) NOT NULL DEFAULT '',
+  `twitch_user_id` varchar(100) NOT NULL DEFAULT '',
+  `twitch_login`    VARCHAR(50) NOT NULL DEFAULT '',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
