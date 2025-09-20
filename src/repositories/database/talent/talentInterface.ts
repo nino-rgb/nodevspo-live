@@ -1,6 +1,7 @@
-import { Talents } from "models/live";
+import { Talent } from "models/live";
 
 export interface ITalentRepository {
-  findAll(): Promise<Talents[] | Error>;
-  getById(id: number): Promise<Talents | Error>;
+  findAll(): Promise<Talent[] | Error>;
+  getById(id: number): Promise<Talent | Error>;
+  searchByName(keyword: string): Promise<Talent[] | Error>;
 }

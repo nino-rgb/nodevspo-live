@@ -1,6 +1,7 @@
-import { Talents } from "models/live";
+import { Talent } from "models/live";
 
-export interface ITarentsService {
-  findAll(): Promise<Talents[] | Error>;
-  getById(id: number): Promise<Talents | Error>;
+export interface ITarentService {
+  findAll(): Promise<Talent[] | Error>;
+  getById(id: number): Promise<Talent | Error>;
+  search(keyword: string): Promise<Talent[] | Error>;
 }

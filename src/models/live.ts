@@ -1,23 +1,40 @@
-export type Talents = {
-  id?: number;
+export type Talent = {
+  id: number;
   name: string;
   youtube_profile: string;
   official_profile: string;
+  youtube_channel_id: string;
+  twitch_channel_id: string;
   createdAt?: Date;
-  updetaedAtt?: Date;
+  updetaedAt?: Date;
 };
 
-export type Games = {
+export type Archive = {
   id?: number;
+  outer_link: string;
+  talent_id: number;
+  video_title: string;
+  video_thumbnail: string;
+  open_date: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type Nowstreaming = {
+  id?: number;
+  outer_link: string;
+  talent_id: number;
+  video_title: string;
+  video_thumbnail: string;
+  open_date: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type FetchedVideo = {
+  videoId: string;
+  channelId: string;
   title: string;
-  createdAt?: Date;
-  updetaedAtt?: Date;
-};
-
-export type TalentGames = {
-  id?: number;
-  talents_id: number;
-  games_id: number;
-  createdAt?: Date;
-  updetaedAtt?: Date;
+  thumbnail: string;
+  publishedAt: string;
 };
