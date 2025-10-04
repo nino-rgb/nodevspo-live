@@ -1,4 +1,3 @@
-// src/services/auth/twitchAuthService.ts
 import { fetchTwitchAppToken } from "../../repositories/outerAPI/twitchAPI";
 
 type CachedToken = { token: string; expiresAt: number };
