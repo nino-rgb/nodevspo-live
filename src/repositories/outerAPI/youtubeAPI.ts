@@ -3,7 +3,7 @@ import { FetchedVideo } from "models/live";
 import dotenv from "dotenv";
 dotenv.config();
 
-export async function FetchArchiveVideosByYoutube(): Promise<FetchedVideo[] | Error> {
+export async function fetchArchiveVideosByYoutube(): Promise<FetchedVideo[] | Error> {
   try {
     const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
       params: {
@@ -32,7 +32,7 @@ export async function FetchArchiveVideosByYoutube(): Promise<FetchedVideo[] | Er
     return new Error(`YouTube API fetch failed: ${error}`);
   }
 }
-export async function FetchNowstrVideosByYoutube(): Promise<FetchedVideo[] | Error> {
+export async function fetchNowstrVideosByYoutube(): Promise<FetchedVideo[] | Error> {
   try {
     const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
       params: {

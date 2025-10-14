@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { FetchArchiveVideosByYoutube, FetchNowstrVideosByYoutube } from "../../repositories/outerAPI/youtubeAPI";
+import { fetchArchiveVideosByYoutube, fetchNowstrVideosByYoutube } from "../../repositories/outerAPI/youtubeAPI";
 import { YouTubeService } from "./youtubeArchiveService";
 import { ArchiveRepository } from "../../repositories/database/archive/archiveRepository";
 import { TalentRepository } from "../../repositories/database/talent/talentRepository";
@@ -15,8 +15,8 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
   const youtubeService = new YouTubeService(talentRepo, archiveRepo, nowstrRepo);
   // 即時実行
   (async () => {
-    const fetchedArchives = await FetchArchiveVideosByYoutube();
-    const fetchedNowstreamings = await FetchNowstrVideosByYoutube();
+    const fetchedArchives = await fetchArchiveVideosByYoutube();
+    const fetchedNowstreamings = await fetchNowstrVideosByYoutube();
 
     if (fetchedArchives instanceof Error) {
       console.error("即時実行 YouTube APIエラー:", fetchedArchives.message);
@@ -45,7 +45,7 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
   cron.schedule("0 * * * *", async () => {
     console.log("[cron] YouTube定期取得");
 
-    const ArchiveFetched = await FetchArchiveVideosByYoutube();
+    const ArchiveFetched = await fetchArchiveVideosByYoutube();
 
     if (ArchiveFetched instanceof Error) {
       console.error("[cron] YouTube APIエラー:", ArchiveFetched.message);
@@ -60,7 +60,7 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
       console.log("[cron] YouTubeアーカイブ保存完了");
     }
 
-    const NowstrFetched = await FetchNowstrVideosByYoutube();
+    const NowstrFetched = await fetchNowstrVideosByYoutube();
 
     if (NowstrFetched instanceof Error) {
       console.error("[cron] Youtube APIエラー:", NowstrFetched.message);

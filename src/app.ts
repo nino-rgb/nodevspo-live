@@ -12,8 +12,8 @@ import { ArchivesController } from "./controllers/archiveControllers";
 import { NowstrController } from "../src/controllers/nowstrControllers";
 import { NowstrService } from "../src/services/nowstreaming/nowstrService";
 import { NowstrRepository } from "../src/repositories/database/nowstreaming/nowstrRepository";
-import { TwitchController } from "./controllers/twitchControllers";
 import "./services/outerdateselect//youtubeScheduler";
+import "./services/outerdateselect/twitchScheduler";
 dotenv.config();
 async function main() {
   const { PORT, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME } = process.env;
@@ -63,8 +63,5 @@ async function main() {
     console.log(`[API] ${req.method} ${req.path}  query=`, req.query);
     next();
   });
-
-  const twitchControllers = new TwitchController();
-  app.use("/", twitchControllers.router);
 }
 main();

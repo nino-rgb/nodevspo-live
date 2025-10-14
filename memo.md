@@ -78,3 +78,9 @@
 - ぶいすぽメンバーのチャンネルIDをカラムに追加
 - 合計23タスク3ヶ月(12周)
 - TwitchAPI でのアクセストークンを保有するためのテーブルがいるのでは?
+
+- twitchIDの取得用curl
+  curl -s "https://api.twitch.tv/helix/users?login=sendo_yuuhi" \
+   -H "Client-Id: ausz28vzv65omy4jf7nh1paredyf9t" \
+   -H "Authorization: Bearer wxb7zp52t4qh0e3xrkaat6dvff8p8i
+  "

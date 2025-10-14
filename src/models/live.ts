@@ -38,3 +38,10 @@ export type FetchedVideo = {
   thumbnail: string;
   publishedAt: string;
 };
+
+export type TalentTwitchRow = {
+  id: number;
+  name?: string; // カラムがある場合だけ
+  twitch_login: string | null;
+  twitch_user_id: string | null;
+};

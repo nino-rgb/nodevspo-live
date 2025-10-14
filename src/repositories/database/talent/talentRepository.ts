@@ -1,5 +1,5 @@
-import { RowDataPacket, Connection } from "mysql2/promise";
-import { Talent } from "models/live";
+import { RowDataPacket, Connection, ResultSetHeader } from "mysql2/promise";
+import { Talent, TalentTwitchRow } from "models/live";
 import { NotFoundDataError, SqlError } from "../../../utils/error";
 
 export class TalentRepository {
@@ -49,6 +49,44 @@ export class TalentRepository {
       return rows;
     } catch (error) {
       return new SqlError(`TalentRepository.searchByName(keyword: string) Error: ${error}`);
+    }
+  }
+  //twitch_loginを保有しているタレントを取得
+  public async findAllWithTwitchLogin(): Promise<TalentTwitchRow[] | Error> {
+    try {
+      const [rows] = await this.connection.execute<RowDataPacket[]>(
+        `SELECT id, name, twitch_login, twitch_user_id
+           FROM talents
+          WHERE twitch_login IS NOT NULL AND twitch_login <> ''`,
+      );
+      return rows as TalentTwitchRow[];
+    } catch (e) {
+      return new Error(`TalentRepository.findAllWithTwitchLogin Error: ${e}`);
+    }
+  }
+  //ログイン名までは人間が埋めたけど、まだ API で user_id を取って保存していないタレント(実用にはあまり関係ない)
+  public async findMissingTwitchUserId(): Promise<TalentTwitchRow[] | Error> {
+    try {
+      const [rows] = await this.connection.execute<RowDataPacket[]>(
+        `SELECT id, name, twitch_login, twitch_user_id
+           FROM talents
+          WHERE twitch_login IS NOT NULL AND twitch_login <> ''
+            AND (twitch_user_id IS NULL OR twitch_user_id = '')`,
+      );
+      return rows as TalentTwitchRow[];
+    } catch (e) {
+      return new Error(`TalentRepository.findMissingTwitchUserId Error: ${e}`);
+    }
+  }
+  //twitch_user_idをまとめて更新
+  public async updateTwitchUserIdByLogin(login: string, userId: string): Promise<void | Error> {
+    try {
+      await this.connection.execute<ResultSetHeader>(`UPDATE talents SET twitch_user_id = ? WHERE twitch_login = ?`, [
+        userId,
+        login,
+      ]);
+    } catch (e) {
+      return new Error(`TalentRepository.updateTwitchUserIdByLogin Error: ${e}`);
     }
   }
 }
