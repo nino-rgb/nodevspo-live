@@ -74,5 +74,28 @@ import { NowstrRepository } from "../../repositories/database/nowstreaming/nowst
     } else {
       console.log("[cron] Youtube配信中保存完了");
     }
+
+    const conn = await createDBConnection();
+    try {
+      //配信中のvideoId､talent_id一覧取得
+      const liveLinks = NowstrFetched.filter((v: any) => v.videoId).map(
+        (v: any) => `https://www.youtube.com/watch?v=${v.videoId}`,
+      );
+
+      //配信が終了したyoutubeのデータの削除
+      if (liveLinks.length > 0) {
+        await conn.execute(
+          `DELETE FROM nowstreamings
+          WHERE outer_link LIKE 'https://www.youtube.com/watch%'
+          AND outer_link NOT IN (?)`,
+          [liveLinks],
+        );
+      } else {
+        await conn.execute(`DELETE FROM nowstreamings WHERE outer_link LIKE 'https://www.youtube.com/watch%'`);
+      }
+      console.log("[cron] youtube終了済み配信削除");
+    } finally {
+      await conn.end();
+    }
   });
 })();
