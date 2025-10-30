@@ -59,18 +59,3 @@ INSERT INTO `talents` (`name`, `youtube_profile`, `official_profile`,`youtube_ch
 ('千燈ゆうひ','ぶいすぽっ！所属、女子高生(?)担当、千燈ゆうひ(Sendo Yuuhi)です！あさ9時頃～よる18時間に配信をすることを得意としています🐠たまに夜にも配信するよ　日曜日は基本おやすみ！皆さんと一緒に楽しい時間を共有したいと思っています😳よろしくお願いいたします🌇身長 → 159cm誕生日 → 12月3日好きなもの → LoL、いろんなゲームカラーコード → # ED784A','ネットの海から這い上がってきた女の子。FPSから逃げ、これまでの人生のほとんどをMOBAに費やしてきた。女子高校生の可能性がある。','UCuDY3ibSP2MFRgf7eo3cojg','1097252496','sendo_yuuhi'),
 ('蝶屋はなび','','元気さと誠実さを兼ね備えた、文武両道ガール。何事にも全力、猪突猛進スタイル。好きな食べ物はめっちゃたこ焼き','UCL9hJsdk9eQa0IlWbFB2oRg','',''),
 ('甘結もか','','格闘ゲームに人生を捧げる女の子。穏やかな話し方の反面、好きなことに対しては納得がいくまで突き詰めるストイックな性格。集中しすぎるあまりそれ以外のことは頭から抜けてしまうことも。','UC8vKBjGY2HVfbW9GAmgikWw','','');
-
-INSERT INTO `archives` (`outer_link`, `talent_id`, `video_title`, `video_thumbnail`, `open_date`) VALUES
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '【2視点', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/25 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '2', 'Switch2', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/26 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '3', '落選', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/27 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '4', 'sasakisaku', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/28 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '5', 'kuzuha', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/29 ');
-
-
-INSERT INTO `nowstreamings` (`outer_link`, `talent_id`, `video_title`, `video_thumbnail`, `open_date`) VALUES
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '1', '【2視点', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/25 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '2', 'Switch2', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/26 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '3', '落選', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/27 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '4', 'sasakisaku', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/28 '),
-('https://youtu.be/hShxZrq-nVs?si=igJEL4Ruo1vb93Xg', '5', 'kuzuha', 'https://pbs.twimg.com/media/GpbuH4qbEAIKGf-?format=jpg&name=large',' 2025/04/29 ');

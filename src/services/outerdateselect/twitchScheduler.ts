@@ -72,6 +72,7 @@ async function runOnce() {
       for (const r of report) {
         if (r.is_live) {
           // 配信中ならまずツイッチのID持ってるタレントのnowstreamingsに入ってるデータを消すその後insertするyoutubeの分は関係ない
+          // https://twitch.tv/%で検索して削除する
           await conn.execute(
             `DELETE FROM nowstreamings WHERE talent_id = ?  AND outer_link LIKE 'https://twitch.tv/%'`,
             [r.talent_id],
