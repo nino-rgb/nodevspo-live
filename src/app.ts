@@ -23,6 +23,7 @@ async function main() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.disable("x-powerd-by");
+  app.use("/talent-icons", express.static("public/talents"));
 
   const corsOptions = {
     origin: "http://localhost:3000",
