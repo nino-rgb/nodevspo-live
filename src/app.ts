@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import * as dotenv from "dotenv";
 import mysql from "mysql2/promise";
 import { AddressInfo } from "net";
@@ -25,12 +25,27 @@ async function main() {
   app.disable("x-powerd-by");
   app.use("/talent-icons", express.static("public/talents"));
 
-  const corsOptions = {
-    origin: "http://localhost:3000",
+  const allowedOrigins: string[] = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
+    : [];
+
+  const corsOptions: CorsOptions = {
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`CORS blocked: ${origin}`));
+    },
     credentials: true,
     optionsSuccessStatus: 200,
   };
-
   app.use(cors(corsOptions));
 
   const server = app.listen(parseInt(PORT as string), () => {
