@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "test": " TZ=UTC jest tests --coverage --runInBand --forceExit --detectOpenHandles",
-    "start": "node dist/src/app.js",
+    "start": "node dist/app.js",
     "build": "tsc",
     "dev": "nodemon src/app.ts",
     "build:watch": "tsc --watch",
