@@ -1,10 +1,11 @@
 import axios from "axios";
 import * as dotenv from "dotenv";
 dotenv.config();
-import { Archive } from "models/live";
-import { createDBConnection } from "tests/utils/DataBase";
+import { Archive } from "../../models/live";
+import { createDBConnection } from "../utils/DataBase";
 import { Connection } from "mysql2/promise";
 import { createArchiveTestData } from "../utils/testData/createArchiveTestData";
+import { beforeEach, afterEach, describe, it, expect } from "@jest/globals";
 
 axios.defaults.headers.common = { "Content-Type": "application/json" };
 axios.defaults.validateStatus = (status) => status >= 200 && status < 500;
@@ -19,7 +20,6 @@ beforeEach(async () => {
 afterEach(async () => {
   await connection.end();
 });
-
 describe("ArchiveApi", () => {
   describe("GET /api/archives", () => {
     it("should retrun 5 archives and 200 status", async () => {
